@@ -1,3 +1,6 @@
+var destination = document.getElementById("summary_destination").textContent;
+console.log("Destination: " + destination);
+
 var distancesObserver = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
 		for(var i = 0; i < mutation.addedNodes.length; i++)
@@ -15,18 +18,40 @@ var distancesObserver = new MutationObserver(function(mutations) {
 	})
 });
 
+function callAPIFunction(address)
+{
+	var now = new Date().getTime();
+	var url = 'http://api.hotelroute.org/queryTripSummary?from=' + encodeURIComponent(destination) + '&to=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now /*+ '&requestId=653392'*/;
+//	console.log(url);
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.onload = function (e) {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+				var response = JSON.parse(xhr.responseText);
+				console.log(response);
+//				scrapeHRSHotelAddress(xhr.responseText);
+			} else {
+//				console.error(xhr.statusText);
+			}
+		}
+	};
+	xhr.onerror = function (e) {
+//		console.error(xhr.statusText);
+	};
+	xhr.send(null);
+}
+
 function scrapeHRSHotelAddress( html)
 {
 	var div = document.createElement('div');
 	div.innerHTML = html;
-//	var elements = div.childNodes;
-//
-//	console.log(elements);
 
 	var elements = div.getElementsByTagName('address');
 	for(var i=0; i<elements.length; i++) {
 		var address = elements[i];
-		console.log(address.innerHTML);
+		callAPIFunction(address.innerHTML);
 	}
 }
 
@@ -39,15 +64,9 @@ function getHRSHotelAddress( hotelItem)
 	xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
-				console.log(url);
 				scrapeHRSHotelAddress(xhr.responseText);
-			} else {
-				console.error(xhr.statusText);
 			}
 		}
-	};
-	xhr.onerror = function (e) {
-		console.error(xhr.statusText);
 	};
 	xhr.send(null);
 }
@@ -78,7 +97,3 @@ var target = document.getElementById("containerAllHotels");
 var config = { childList: true };
  
 hotelsObserver.observe(target, config);
-
-var destination = document.getElementById("summary_destination").textContent;
-
-console.log("Destination: " + destination);
