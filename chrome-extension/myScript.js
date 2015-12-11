@@ -40,9 +40,9 @@ function injectResults(data)
 		var dists = hotelElement.getElementsByClassName('distances_centered');
 		if(dists.length > 0) {
 			var elem = dists[0];
-			elem.innerHTML += '<div class="hd train">' + data.numChanges + '</div>';
-			elem.innerHTML += '<div class="hd train">' + ms2str(data.travelDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-time.png);background-position:2px 0;">' + ms2str(data.travelDuration) + '</div>';
 			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-walk.png);background-position:6px 0;">' + ms2str(data.walkDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-change.png);background-position:0px 0;">' + data.numChanges + ' umst.</div>';
 		}
 	}
 }
@@ -111,7 +111,7 @@ var hotelsObserver = new MutationObserver(function(mutations) {
 			{
 				var hotelNode = addedNode;
 				var hotelId = hotelNode.getAttribute("id");
-				console.log("Added hotel with id [" + hotelId + "].");
+//				console.log("Added hotel with id [" + hotelId + "].");
 
 				var hotelItem = hotelNode.getAttribute("data-hotelitemurl");
 				getHRSHotelAddress(hotelItem,hotelId);
