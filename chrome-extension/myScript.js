@@ -15,6 +15,30 @@ var distancesObserver = new MutationObserver(function(mutations) {
 	})
 });
 
+function getHRSHotelAddress( hotelItem)
+{
+	var url = 'http://www.hrs.de' + hotelItem;
+	var str = url;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.onload = function (e) {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200) {
+//				console.log(xhr.responseText);
+				console.log(url);
+			} else {
+				console.error(xhr.statusText);
+			}
+		}
+	};
+	xhr.onerror = function (e) {
+		console.error(xhr.statusText);
+	};
+	xhr.send(null);
+
+	return str;
+}
 
 var hotelsObserver = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
@@ -26,6 +50,11 @@ var hotelsObserver = new MutationObserver(function(mutations) {
 				var hotelNode = addedNode;
 				var hotelId = hotelNode.getAttribute("id");
 				console.log("Added hotel with id [" + hotelId + "].");
+
+				var hotelItem = hotelNode.getAttribute("data-hotelitemurl");
+				var hotelAddress = getHRSHotelAddress( hotelItem);
+				console.log("Added hotel with address [" + hotelAddress + "].");
+
 				distancesObserver.observe(hotelNode, { childList: true });
 			}
 		}
