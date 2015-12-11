@@ -18,10 +18,39 @@ var distancesObserver = new MutationObserver(function(mutations) {
 	})
 });
 
-function callAPIFunction(address)
+function ms2str(milliseconds)
+{
+	var ret = '';
+	if(milliseconds) {
+		milliseconds = parseInt( milliseconds / 1000 / 60);
+		ret = milliseconds + ' min';
+	} else {
+		ret = '0 min';
+	}
+
+	return ret;
+}
+
+function injectResults(data)
+{
+	console.log(data);
+
+	var hotelElement = document.getElementById(data.requestId);
+	if(hotelElement) {
+		var dists = hotelElement.getElementsByClassName('distances_centered');
+		if(dists.length > 0) {
+			var elem = dists[0];
+			elem.innerHTML += '<div class="hd train">' + data.numChanges + '</div>';
+			elem.innerHTML += '<div class="hd train">' + ms2str(data.travelDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train">' + ms2str(data.walkDuration) + '</div>';
+		}
+	}
+}
+
+function callAPIFunction(address, hotelId)
 {
 	var now = new Date().getTime();
-	var url = 'http://api.hotelroute.org/queryTripSummary?from=' + encodeURIComponent(destination) + '&to=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now /*+ '&requestId=653392'*/;
+	var url = 'http://api.hotelroute.org/queryTripSummary?from=' + encodeURIComponent(destination) + '&to=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
 //	console.log(url);
 
 	var xhr = new XMLHttpRequest();
@@ -29,8 +58,10 @@ function callAPIFunction(address)
 	xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
-				var response = JSON.parse(xhr.responseText);
-				console.log(response);
+				if( '' != xhr.responseText) {
+					var response = JSON.parse(xhr.responseText);
+					injectResults(response)
+				}
 //				scrapeHRSHotelAddress(xhr.responseText);
 			} else {
 //				console.error(xhr.statusText);
@@ -43,7 +74,7 @@ function callAPIFunction(address)
 	xhr.send(null);
 }
 
-function scrapeHRSHotelAddress( html)
+function scrapeHRSHotelAddress(html, hotelId)
 {
 	var div = document.createElement('div');
 	div.innerHTML = html;
@@ -51,11 +82,11 @@ function scrapeHRSHotelAddress( html)
 	var elements = div.getElementsByTagName('address');
 	for(var i=0; i<elements.length; i++) {
 		var address = elements[i];
-		callAPIFunction(address.innerHTML);
+		callAPIFunction(address.innerHTML, hotelId);
 	}
 }
 
-function getHRSHotelAddress( hotelItem)
+function getHRSHotelAddress(hotelItem, hotelId)
 {
 	var url = 'http://www.hrs.de' + hotelItem;
 
@@ -64,7 +95,7 @@ function getHRSHotelAddress( hotelItem)
 	xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
-				scrapeHRSHotelAddress(xhr.responseText);
+				scrapeHRSHotelAddress(xhr.responseText, hotelId);
 			}
 		}
 	};
@@ -83,7 +114,7 @@ var hotelsObserver = new MutationObserver(function(mutations) {
 				console.log("Added hotel with id [" + hotelId + "].");
 
 				var hotelItem = hotelNode.getAttribute("data-hotelitemurl");
-				getHRSHotelAddress( hotelItem);
+				getHRSHotelAddress(hotelItem,hotelId);
 
 				distancesObserver.observe(hotelNode, { childList: true });
 			}
