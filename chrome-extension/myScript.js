@@ -42,7 +42,7 @@ function injectResults(data)
 			var elem = dists[0];
 			elem.innerHTML += '<div class="hd train">' + data.numChanges + '</div>';
 			elem.innerHTML += '<div class="hd train">' + ms2str(data.travelDuration) + '</div>';
-			elem.innerHTML += '<div class="hd train">' + ms2str(data.walkDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-walk.png);background-position:6px 0;">' + ms2str(data.walkDuration) + '</div>';
 		}
 	}
 }
@@ -50,7 +50,7 @@ function injectResults(data)
 function callAPIFunction(address, hotelId)
 {
 	var now = new Date().getTime();
-	var url = 'http://api.hotelroute.org/queryTripSummary?from=' + encodeURIComponent(destination) + '&to=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
+	var url = 'http://api.hotelroute.org/queryTripSummary?to=' + encodeURIComponent(destination) + '&from=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
 //	console.log(url);
 
 	var xhr = new XMLHttpRequest();
