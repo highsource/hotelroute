@@ -5,16 +5,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.Validate;
-import org.hisrc.hotelroute.dto.HotelNumberAndAddress;
-import org.hisrc.hotelroute.dto.HotelTripsSummary;
 import org.hisrc.hotelroute.dto.TripSummary;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +25,7 @@ import de.schildbach.pte.dto.Trip.Individual;
 import de.schildbach.pte.dto.Trip.Leg;
 
 @Service
-public class HotelTripsSummaryService {
+public class TripSummaryService {
 
 	@Inject
 	private NetworkProvider networkProvider;
@@ -40,35 +34,18 @@ public class HotelTripsSummaryService {
 		this.networkProvider = networkProvider;
 	}
 
-	public HotelTripsSummary queryHotelTripsSummary(
-			List<HotelNumberAndAddress> hotelNumberAndAddresses,
-			String destinationAddress, Date startDate, Date endDate)
+	public TripSummary queryTripSummary(Long requestId, String origin,
+			String destination, Date startDate, Date endDate)
 			throws IOException {
 
-		final Location to = queryLocation(destinationAddress);
+		final Location from = queryLocation(origin);
+		final Location to = queryLocation(destination);
 
-		if (to == null) {
+		if (from == null || to == null) {
 			return null;
 		} else {
 			final Date date = createTripDate(startDate);
-			final Map<Integer, Location> hotelNumberAndLocations = queryHotelLocations(hotelNumberAndAddresses);
-
-			final Map<Integer, TripSummary> hotelNumberAndSummaries = new HashMap<Integer, TripSummary>(
-					hotelNumberAndLocations.size());
-
-			for (Entry<Integer, Location> hotelNumberAndLocationEntry : hotelNumberAndLocations
-					.entrySet()) {
-				final int hotelNumber = hotelNumberAndLocationEntry.getKey();
-				final Location from = hotelNumberAndLocationEntry.getValue();
-				try {
-					final TripSummary tripSummary = queryTripSummary(from, to,
-							date);
-					hotelNumberAndSummaries.put(hotelNumber, tripSummary);
-				} catch (IOException ignored) {
-					// TODO
-				}
-			}
-			return new HotelTripsSummary(to, hotelNumberAndSummaries);
+			return queryTripSummary(requestId, from, to, date);
 		}
 	}
 
@@ -82,8 +59,8 @@ public class HotelTripsSummaryService {
 		return calendar.getTime();
 	}
 
-	public TripSummary queryTripSummary(Location from, Location to, Date date)
-			throws IOException {
+	public TripSummary queryTripSummary(Long requestId, Location from,
+			Location to, Date date) throws IOException {
 		final QueryTripsResult result = networkProvider.queryTrips(from, null,
 				to, new Date(), true, Product.ALL, WalkSpeed.NORMAL,
 				Accessibility.NEUTRAL, null);
@@ -109,12 +86,13 @@ public class HotelTripsSummaryService {
 									two.getDuration());
 						}
 					});
-			final TripSummary tripSummary = createTripSummary(tripWithShortestDuration);
+			final TripSummary tripSummary = createTripSummary(requestId,
+					tripWithShortestDuration);
 			return tripSummary;
 		}
 	}
 
-	private TripSummary createTripSummary(Trip trip) {
+	private TripSummary createTripSummary(Long requestId, Trip trip) {
 		Validate.notNull(trip);
 		final Leg firstLeg = trip.legs.get(0);
 		Long walkDuration = null;
@@ -127,27 +105,8 @@ public class HotelTripsSummaryService {
 		}
 		final long travelDuration = trip.getDuration()
 				- (walkDuration == null ? 0 : walkDuration);
-		return new TripSummary(trip.from, trip.to, walkDuration,
+		return new TripSummary(requestId, trip.from, trip.to, walkDuration,
 				travelDuration, trip.numChanges);
-	}
-
-	public Map<Integer, Location> queryHotelLocations(
-			List<HotelNumberAndAddress> hotelNumberAndAddresses)
-			throws IOException {
-		Validate.noNullElements(hotelNumberAndAddresses);
-		Map<Integer, Location> hotelLocations = new HashMap<Integer, Location>();
-		for (HotelNumberAndAddress hotelNumberAndAddress : hotelNumberAndAddresses) {
-			try {
-				final Location hotelLocation = queryLocation(hotelNumberAndAddress.address);
-				if (hotelLocation != null) {
-					hotelLocations.put(hotelNumberAndAddress.hotelNumber,
-							hotelLocation);
-				}
-			} catch (IOException ignored) {
-				// TODO
-			}
-		}
-		return hotelLocations;
 	}
 
 	public Location queryLocation(String text) throws IOException {

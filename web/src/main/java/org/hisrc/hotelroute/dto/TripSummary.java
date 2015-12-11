@@ -10,15 +10,17 @@ public class TripSummary implements Serializable {
 
 	private static final long serialVersionUID = 364900051056665010L;
 
+	public Long requestId;
 	public final Location from;
 	public final Location to;
 	public final int numChanges;
 	public Long walkDuration;
 	public long travelDuration;
 
-	public TripSummary(Location from, Location to, Long firstWalkDuration,
-			long travelDuration, int numChanges) {
+	public TripSummary(Long requestId, Location from, Location to,
+			Long firstWalkDuration, long travelDuration, int numChanges) {
 		super();
+		this.requestId = requestId;
 		this.from = Validate.notNull(from);
 		this.to = Validate.notNull(to);
 		this.walkDuration = firstWalkDuration;
