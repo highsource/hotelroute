@@ -4,18 +4,22 @@ HotelRoute is a Google Chrome extension which helps you to find hotels with the 
 
 This allows you to save time, money, reduce travel stress and get better hotel quality for price.
 
-## Status
-
 HotelRoute was developed by [Thomas Tursics](http://github.com/tursics) and [Alexey Valikov](http://github.com/highsource) as the [DB Hackathon 3](https://www.mindboxberlin.com/index.php/3rdhackathon.html) project and should be considered a prototype or a proof-of-concept implementation.
 
+# Status
+
 The [HotelRoute back-end](http://api.hotelroute.org/index.html) uses [bahn.de](http://bahn.de) to search for connections.  
-**Requests from HotelRoute are very often blocked by [bahn.de](http://bahn.de) due to the *"Our booking system is currently being used by too many users at the same time"* error.  
-This happens even more frequently, when several users access HotelRoute at the same time.**  
+**Requests from HotelRoute are very often blocked by [bahn.de](http://bahn.de) due to the error:**
+
+> Our booking system is currently being used by too many users at the same time.  
+
+**This happens even more frequently, when several users access HotelRoute at the same time.**
+
 In case of errors, public transport connection information **will not be added to many or most of the hotels in your search results**.
 
-Please consider that at the moment this is just a proof-of-concept which pushes the boundaries and therefore tends to fails very often.
+Please consider that at the moment HotelRoute is just a proof-of-concept which pushes the boundaries of existing systems and therefore breaks very often.
 
-## What it does
+# What it does
 
 HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) and adds information on public transport connection between the found hotels and the travel destination:
 
@@ -27,7 +31,11 @@ HotelRoute adds the following information:
 * ![21 min travel](media/travel01.png) - duration of the trip with public transport to your destination (in minutes)
 * ![1 change](media/change01.png) - how many times do you have to change during the trip
 
-## How it helps
+# Disclaimer
+
+**The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results.**
+
+# How it helps
 
 When you search for hotels on portals like [hrs.de](http://www.hrs.de), [hotel.com](http://www.hotel.com) or [booking.com](http://www.booking.com),
 search results typically contain distance to your destination in kilometers or miles.
@@ -46,7 +54,7 @@ This helps you to:
 * save money by avoiding expensive central hotels,
 * get better hotel quality (more hotel stars) for the price in offside, but still well connected hotels.
 
-## How to use it
+# How to use it
 
 * Download and install the Google Chrome extension from [Releases](https://github.com/highsource/hotelroute/releases)
 * Go to [hrs.de](http://www.hrs.de/) and search for hotels for a travel destination in Germany:  
@@ -55,11 +63,7 @@ This helps you to:
 ![9 minutes walk + 15 min travel from Rheinsberg am See; 11 minutes + 28 minutes from Michels Apart](media/hrsde03.png)
 * Choose the hotel which suits you best
 
-## Disclaimer
-
-**The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results.**
-
-## Limitations
+# Limitations
 
 * In some cases the location of the hotel can't be be unambiguously determined based on its address.  
 This means that results may be inaccurate and/or misleading.
@@ -72,13 +76,13 @@ HotelRoute may be discontinued or shut down any moment of time.
 * HotelRoute searches for the shortest trip between the address of the hotel and your travel destination at ca. 09:00 of the first or the second day of the stay (the latter in case current time is already later than 09:00 of the first day of the stay).  
 In certain cases (public holidays etc.) these results may be not representative.
 
-## Privacy
+# Privacy
 
 * HotelRoute accesses travel destination, arrival and departure dates and the results of your search.
 * This information is transmitted to the [api.hotelroute.org](http://api.hotelroute.org) and indirectly to [bahn.de](http://bahn.de). It is neither stored nor transmitted to any other parties.
 * Currently we use the `HTTP` protocol to transfer data. This means that third parties may potentially get access to the transferred data.
 
-## Contact
+# Contact
 
 * [Alexey Valikov](https://www.xing.com/profile/Aleksei_Valikov)
 * [Thomas Tursics](https://www.xing.com/profile/Thomas_Tursics)
