@@ -8,13 +8,13 @@ It helps you to save time, save money, reduce travel stress and get better hotel
 
 HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) or [hrs.com](http://www.hrs.com) and adds information on public transport connection between the found hotels and the travel destination.
 
-TODO PICTURE HERE
+![Screenshot of hrs.de with HotelRoute information](media/hrsde01.png)
 
 HotelRoute adds the following information:
 
-* Walking time to the next public transport stop
-* Duration of the trip with public transport to your destination (in minutes)
-* How many times do you have to change during the trip
+* ![8 min walk](media/walk01.png) - walking time to the next public transport stop
+* ![21 min travel](media/travel01.png) - duration of the trip with public transport to your destination (in minutes)
+* ![1 change](media/change01.png) - how many times do you have to change during the trip
 
 ## How it helps
 
