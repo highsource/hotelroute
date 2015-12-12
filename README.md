@@ -2,15 +2,22 @@
 
 HotelRoute is a Google Chrome extension which helps you to find hotels with the best public transport connection to your destination.
 
-Save time, money, reduce travel stress and get better hotel quality.
+This allows you to save time, money, reduce travel stress and get better hotel quality for price.
 
 ## Status
 
 HotelRoute was developed by [Thomas Tursics](http://github.com/tursics) and [Alexey Valikov](http://github.com/highsource) as the [DB Hackathon 3](https://www.mindboxberlin.com/index.php/3rdhackathon.html) project and should be considered a prototype or a proof-of-concept implementation.
 
+The [HotelRoute back-end](http://api.hotelroute.org/index.html) uses [bahn.de](http://bahn.de) to search for connections.  
+**Requests from HotelRoute are very often blocked by [bahn.de](http://bahn.de) due to the *"Our booking system is currently being used by too many users at the same time"* error.  
+This happens even more frequently, when several users access HotelRoute at the same time.**  
+In case of errors, public transport connection information **will not be added to many or most of the hotels in your search results**.
+
+Please consider that at the moment this is just a proof-of-concept which pushes the boundaries and therefore tends to fails very often.
+
 ## What it does
 
-HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) and adds information on public transport connection between the found hotels and the travel destination.
+HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) and adds information on public transport connection between the found hotels and the travel destination:
 
 ![Screenshot of hrs.de with HotelRoute information](media/hrsde01.png)
 
@@ -54,18 +61,14 @@ This helps you to:
 
 ## Limitations
 
-* The HotelRoute [back-end](http://api.hotelroute.org/index.html) uses [bahn.de](http://bahn.de) to search for connections.  
-**Requests from HotelRoute are very often blocked by [bahn.de](http://bahn.de) because *"Our booking system is currently being used by too many users at the same time"*. This happens even more frequently, when several users access HotelRoute at the same time. ** 
-In case of errors, public transport connection information **will not be added** to many hotels in your search results.
-**Please consider that this is a prototype/proof-of-concept which pushes the boundaries and therefore tends to fails often.**
+* In some cases the location of the hotel can't be be unambiguously determined based on its address.  
+This means that results may be inaccurate and/or misleading.
 * HotelRoute uses [bahn.de](http://bahn.de) to find the shortest trip between each of the hotels and your travel destination.  
 This means HotelRoute mostly works only for German destinations.
 * HotelRoute uses "unofficial" APIs for [bahn.de](http://bahn.de), accesses and modifies [hrs.de](http://www.hrs.de) pages directly.  
 This means HotelRoute may cease working or break any moment of time without notice.
 * HotelRoute is primarily a prototype with the goal to demostrate integration of [bahn.de](http://bahn.de) with external applications.  
 HotelRoute may be discontinued or shut down any moment of time.
-* In some cases the location of the hotel can't be be unambiguously determined based on its address.  
-This means that results may be inaccurate.
 * HotelRoute searches for the shortest trip between the address of the hotel and your travel destination at ca. 09:00 of the first or the second day of the stay (the latter in case current time is already later than 09:00 of the first day of the stay).  
 In certain cases (public holidays etc.) these results may be not representative.
 
