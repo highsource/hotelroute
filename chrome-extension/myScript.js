@@ -48,8 +48,8 @@ function injectResults(data)
 //		console.log(dists.length);
 		if(dists.length > 0) {
 			var elem = dists[0];
-			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-time.png);background-position:2px 0;">' + ms2str(data.travelDuration) + '</div>';
 			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-walk.png);background-position:6px 0;">' + ms2str(data.walkDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-time.png);background-position:2px 0;">' + ms2str(data.travelDuration) + '</div>';
 			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-change' + (data.numChanges <=0 ? '1' : data.numChanges == 1 ? '2' : '3') + '.png);background-position:0px 0;">' + data.numChanges + ' umst</div>';
 		}
 	}
@@ -132,9 +132,29 @@ var hotelsObserver = new MutationObserver(function(mutations) {
 	})
 });
 
-
 var target = document.getElementById("containerAllHotels");
-
 var config = { childList: true };
- 
 hotelsObserver.observe(target, config);
+
+function addFilter(node)
+{
+	var str = '<div class="teaser"><div id="traveltime" class="sliderBox clearFix">';
+	str += '<label style="width:auto;">Fahrzeit</label>';
+	str += '<input type="text" class="noInput" readonly style="border:none;" value="0 - 60 min">';
+	str += '<div class="slider " data-celname="Main Filter" data-celpos="5" data-celinfo="traveltime">';
+	str += '<div class="knobs knob1" style="left: 0px; position: relative;">&nbsp;</div>';
+	str += '<div class="knobs knob2" style="left: 170px; position: relative;">&nbsp;</div>';
+	str += '<div class="leftEl" style="width: 0px;"></div>';
+	str += '<div class="rightEl" style="width: 14px;"></div>';
+	str += '</div>';
+	str += '<div class="measure"><span class="left">0</span> <span class="right">60</span></div>';
+	str += '</div></div>';
+
+	node.insertAdjacentHTML('beforeend', str);
+	node.insertBefore(node.childNodes[node.childNodes.length-1],node.childNodes[2]);
+
+//	Filter.multiSliders.push("traveltime");
+}
+
+var filter = document.getElementById("filter");
+addFilter(filter);
