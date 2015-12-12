@@ -33,7 +33,7 @@ HotelRoute adds the following information:
 
 # Disclaimer
 
-**The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results.**
+**The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results, they may be wrong and misleading.**
 
 # How it helps
 
