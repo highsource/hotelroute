@@ -6,7 +6,7 @@ It helps you to save time, save money, reduce travel stress and get better hotel
 
 ## What it does
 
-HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) or [hrs.com](http://www.hrs.com) and adds information on public transport connection between the found hotels and the travel destination.
+HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) and adds information on public transport connection between the found hotels and the travel destination.
 
 ![Screenshot of hrs.de with HotelRoute information](media/hrsde01.png)
 
@@ -18,7 +18,7 @@ HotelRoute adds the following information:
 
 ## How it helps
 
-When you search for hotels on portals like [hrs.com](http://www.hrs.com), [hotel.com](http://www.hotel.com) or [booking.com](http://www.booking.com),
+When you search for hotels on portals like [hrs.de](http://www.hrs.de), [hotel.com](http://www.hotel.com) or [booking.com](http://www.booking.com),
 search results typically contain distance to your destination in kilometers or miles.
 
 If you prefer using public transport, distance in kilometers does not help you that much.
@@ -37,7 +37,7 @@ This helps you to:
 
 ## How it works
 
-* HotelRoute is a Google Chrome extension which works with hotel search on [hrs.de](http://www.hrs.de) or [hrs.com](http://www.hrs.com).
+* HotelRoute is a Google Chrome extension which works with hotel search on [hrs.de](http://www.hrs.de).
 * 
 Finds hotels with the best public transport connection to your destination.
 
@@ -49,7 +49,7 @@ The accuracy of the provided information is not guaranteed. We overtake nor resp
 
 * HotelRoute uses [bahn.de](http://bahn.de) to find the shortest trip between each of the hotels and your travel destination.  
 This means HotelRoute mostly works only for German destinations.
-* HotelRoute uses "unofficial" APIs for [bahn.de](http://bahn.de), accesses and modifies [hrs.de](http://www.hrs.de)/[hrs.com](http://www.hrs.com) pages directly.  
+* HotelRoute uses "unofficial" APIs for [bahn.de](http://bahn.de), accesses and modifies [hrs.de](http://www.hrs.de) pages directly.  
 This means HotelRoute may cease working or break any moment of time without notice.
 * HotelRoute is primarily a prototype with the goal to demostrate integration of [bahn.de](http://bahn.de) with external applications.  
 HotelRoute may be discontinued or shut down any moment of time.
