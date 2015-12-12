@@ -33,17 +33,30 @@
 
 <p>HotelRoute is a Google Chrome extension which helps you to find hotels with the best public transport connection to your destination.</p>
 
-<p>It helps you to save time, save money, reduce travel stress and get better hotel quality.</p>
-
-<h2>
-<a id="status" class="anchor" href="#status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Status</h2>
+<p>This allows you to save time, money, reduce travel stress and get better hotel quality for price.</p>
 
 <p>HotelRoute was developed by <a href="http://github.com/tursics">Thomas Tursics</a> and <a href="http://github.com/highsource">Alexey Valikov</a> as the <a href="https://www.mindboxberlin.com/index.php/3rdhackathon.html">DB Hackathon 3</a> project and should be considered a prototype or a proof-of-concept implementation.</p>
 
-<h2>
-<a id="what-it-does" class="anchor" href="#what-it-does" aria-hidden="true"><span class="octicon octicon-link"></span></a>What it does</h2>
+<h1>
+<a id="status" class="anchor" href="#status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Status</h1>
 
-<p>HotelRoute extends hotel search results of <a href="http://www.hrs.de">hrs.de</a> and adds information on public transport connection between the found hotels and the travel destination.</p>
+<p>The <a href="http://api.hotelroute.org/index.html">HotelRoute back-end</a> uses <a href="http://bahn.de">bahn.de</a> to search for connections.<br>
+<strong>Requests from HotelRoute are very often blocked by <a href="http://bahn.de">bahn.de</a> due to the error:</strong></p>
+
+<blockquote>
+<p>Our booking system is currently being used by too many users at the same time.  </p>
+</blockquote>
+
+<p><strong>This happens even more frequently, when several users access HotelRoute at the same time.</strong></p>
+
+<p>In case of errors, public transport connection information <strong>will not be added to many or most of the hotels in your search results</strong>.</p>
+
+<p>Please consider that at the moment HotelRoute is just a proof-of-concept which pushes the boundaries of existing systems and therefor breaks very often.</p>
+
+<h1>
+<a id="what-it-does" class="anchor" href="#what-it-does" aria-hidden="true"><span class="octicon octicon-link"></span></a>What it does</h1>
+
+<p>HotelRoute extends hotel search results of <a href="http://www.hrs.de">hrs.de</a> and adds information on public transport connection between the found hotels and the travel destination:</p>
 
 <p><img src="media/hrsde01.png" alt="Screenshot of hrs.de with HotelRoute information"></p>
 
@@ -58,8 +71,13 @@
 <img src="media/change01.png" alt="1 change"> - how many times do you have to change during the trip</li>
 </ul>
 
-<h2>
-<a id="how-it-helps" class="anchor" href="#how-it-helps" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it helps</h2>
+<h1>
+<a id="disclaimer" class="anchor" href="#disclaimer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Disclaimer</h1>
+
+<p><strong>The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results, they may be wrong and misleading.</strong></p>
+
+<h1>
+<a id="how-it-helps" class="anchor" href="#how-it-helps" aria-hidden="true"><span class="octicon octicon-link"></span></a>How it helps</h1>
 
 <p>When you search for hotels on portals like <a href="http://www.hrs.de">hrs.de</a>, <a href="http://www.hotel.com">hotel.com</a> or <a href="http://www.booking.com">booking.com</a>,
 search results typically contain distance to your destination in kilometers or miles.</p>
@@ -80,8 +98,8 @@ This may be a direct connection or you may need to change transport means a coup
 <li>get better hotel quality (more hotel stars) for the price in offside, but still well connected hotels.</li>
 </ul>
 
-<h2>
-<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it</h2>
+<h1>
+<a id="how-to-use-it" class="anchor" href="#how-to-use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use it</h1>
 
 <ul>
 <li>Download and install the Google Chrome extension from <a href="https://github.com/highsource/hotelroute/releases">Releases</a>
@@ -89,44 +107,39 @@ This may be a direct connection or you may need to change transport means a coup
 <li>Go to <a href="http://www.hrs.de/">hrs.de</a> and search for hotels for a travel destination in Germany:<br>
 <img src="media/hrsde02.png" alt="Searching for the hotel near Berlin U-Bahn Jannowitzbrücke">
 </li>
-<li>See the connection information in results:<br>
+<li>See the connection information in the search results:<br>
 <img src="media/hrsde03.png" alt="9 minutes walk + 15 min travel from Rheinsberg am See; 11 minutes + 28 minutes from Michels Apart">
 </li>
 <li>Choose the hotel which suits you best</li>
 </ul>
 
-<h2>
-<a id="disclaimer" class="anchor" href="#disclaimer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Disclaimer</h2>
-
-<p>The accuracy of the provided information is not guaranteed. We overtake nor responsibility for the correctness of results.</p>
-
-<h2>
-<a id="limitations" class="anchor" href="#limitations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitations</h2>
+<h1>
+<a id="limitations" class="anchor" href="#limitations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Limitations</h1>
 
 <ul>
+<li>In some cases the location of the hotel can't be be unambiguously determined based on its address.<br>
+This means that results may be inaccurate and/or misleading.</li>
 <li>HotelRoute uses <a href="http://bahn.de">bahn.de</a> to find the shortest trip between each of the hotels and your travel destination.<br>
 This means HotelRoute mostly works only for German destinations.</li>
 <li>HotelRoute uses "unofficial" APIs for <a href="http://bahn.de">bahn.de</a>, accesses and modifies <a href="http://www.hrs.de">hrs.de</a> pages directly.<br>
 This means HotelRoute may cease working or break any moment of time without notice.</li>
 <li>HotelRoute is primarily a prototype with the goal to demostrate integration of <a href="http://bahn.de">bahn.de</a> with external applications.<br>
 HotelRoute may be discontinued or shut down any moment of time.</li>
-<li>In some cases the location of the hotel can't be be unambiguously determined based on its address.<br>
-This means that results may be inaccurate.</li>
 <li>HotelRoute searches for the shortest trip between the address of the hotel and your travel destination at ca. 09:00 of the first or the second day of the stay (the latter in case current time is already later than 09:00 of the first day of the stay).<br>
 In certain cases (public holidays etc.) these results may be not representative.</li>
 </ul>
 
-<h2>
-<a id="privacy" class="anchor" href="#privacy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy</h2>
+<h1>
+<a id="privacy" class="anchor" href="#privacy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Privacy</h1>
 
 <ul>
 <li>HotelRoute accesses travel destination, arrival and departure dates and the results of your search.</li>
-<li>This information is transmitted to the <a href="http://api.hotelsearch.org">api.hotelsearch.org</a> and indirectly to <a href="http://bahn.de">bahn.de</a>. It is neither stored nor transmitted to any other parties.</li>
-<li>Currently we use the <code>HTTP</code> protocol to transfer data. This means that third parties potentially have access to the information indicated above.</li>
+<li>This information is transmitted to the <a href="http://api.hotelroute.org">api.hotelroute.org</a> and indirectly to <a href="http://bahn.de">bahn.de</a>. It is neither stored nor transmitted to any other parties.</li>
+<li>Currently we use the <code>HTTP</code> protocol to transfer data. This means that third parties may potentially get access to the transferred data.</li>
 </ul>
 
-<h2>
-<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h2>
+<h1>
+<a id="contact" class="anchor" href="#contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contact</h1>
 
 <ul>
 <li><a href="https://www.xing.com/profile/Aleksei_Valikov">Alexey Valikov</a></li>
