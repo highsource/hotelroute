@@ -163,4 +163,4 @@ function addFilter(node)
 }
 
 var filter = document.getElementById("filter");
-addFilter(filter);
+//addFilter(filter);
