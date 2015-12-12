@@ -1,5 +1,5 @@
 var destination = document.getElementById("summary_destination").textContent;
-console.log("Destination: " + destination);
+//console.log("Destination: " + destination);
 
 var distancesObserver = new MutationObserver(function(mutations) {
 	mutations.forEach(function(mutation) {
@@ -8,11 +8,17 @@ var distancesObserver = new MutationObserver(function(mutations) {
 			var addedNode = mutation.addedNodes[i];
 			if (addedNode.getAttribute("class") && addedNode.getAttribute("class").indexOf("distances") > -1)
 			{
-				var distancesNode = addedNode;
-				console.log("Added distances node:");
-				console.log(distancesNode);
-				console.log("Tooltip data:");
-				console.log(distancesNode.children[0].children[0].tooltipData);
+				for(var j = 0; j < mutation.target.attributes.length; ++j)
+				{
+					var attribute = mutation.target.attributes[j];
+					if( 'data-hotelitemurl' == attribute.nodeName) {
+						var hotelItem = attribute.nodeValue;
+						var hotelId = mutation.target.id;
+//						console.log("Added hotel with id [" + hotelId + "].");
+
+						getHRSHotelAddress(hotelItem,hotelId);
+					}
+				}
 			}
 		}
 	})
@@ -33,16 +39,18 @@ function ms2str(milliseconds)
 
 function injectResults(data)
 {
-	console.log(data);
+//	console.log(data);
 
 	var hotelElement = document.getElementById(data.requestId);
+//	console.log(hotelElement);
 	if(hotelElement) {
 		var dists = hotelElement.getElementsByClassName('distances_centered');
+//		console.log(dists.length);
 		if(dists.length > 0) {
 			var elem = dists[0];
-			elem.innerHTML += '<div class="hd train">' + data.numChanges + '</div>';
-			elem.innerHTML += '<div class="hd train">' + ms2str(data.travelDuration) + '</div>';
-			elem.innerHTML += '<div class="hd train">' + ms2str(data.walkDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-time.png);background-position:2px 0;">' + ms2str(data.travelDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-walk.png);background-position:6px 0;">' + ms2str(data.walkDuration) + '</div>';
+			elem.innerHTML += '<div class="hd train" style="background-image:url(http://www.hotelroute.org/media/icon-change' + (data.numChanges <=0 ? '1' : data.numChanges == 1 ? '2' : '3') + '.png);background-position:0px 0;">' + data.numChanges + ' umst</div>';
 		}
 	}
 }
@@ -50,7 +58,7 @@ function injectResults(data)
 function callAPIFunction(address, hotelId)
 {
 	var now = new Date().getTime();
-	var url = 'http://api.hotelroute.org/queryTripSummary?from=' + encodeURIComponent(destination) + '&to=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
+	var url = 'http://api.hotelroute.org/queryTripSummary?to=' + encodeURIComponent(destination) + '&from=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
 //	console.log(url);
 
 	var xhr = new XMLHttpRequest();
@@ -62,7 +70,6 @@ function callAPIFunction(address, hotelId)
 					var response = JSON.parse(xhr.responseText);
 					injectResults(response)
 				}
-//				scrapeHRSHotelAddress(xhr.responseText);
 			} else {
 //				console.error(xhr.statusText);
 			}
@@ -111,10 +118,13 @@ var hotelsObserver = new MutationObserver(function(mutations) {
 			{
 				var hotelNode = addedNode;
 				var hotelId = hotelNode.getAttribute("id");
-				console.log("Added hotel with id [" + hotelId + "].");
+				var dists = hotelNode.getElementsByClassName('distances_centered');
+//				console.log("Added hotel with id [" + hotelId + "].");
 
-				var hotelItem = hotelNode.getAttribute("data-hotelitemurl");
-				getHRSHotelAddress(hotelItem,hotelId);
+				if(dists.length > 0) {
+					var hotelItem = hotelNode.getAttribute("data-hotelitemurl");
+					getHRSHotelAddress(hotelItem,hotelId);
+				}
 
 				distancesObserver.observe(hotelNode, { childList: true });
 			}
