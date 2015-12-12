@@ -50,10 +50,14 @@ This helps you to:
 
 ## Disclaimer
 
-The accuracy of the provided information is not guaranteed. We overtake nor responsibility for the correctness of results.
+**The accuracy of the provided information is in no way guaranteed. We overtake no responsibility for the correctness of results.**
 
 ## Limitations
 
+* The HotelRoute [back-end](http://api.hotelroute.org/index.html) uses [bahn.de](http://bahn.de) to search for connections.  
+**Requests from HotelRoute are very often blocked by [bahn.de](http://bahn.de) because *"Our booking system is currently being used by too many users at the same time"*. This happens even more frequently, when several users access HotelRoute at the same time. ** 
+In case of errors, public transport connection information **will not be added** to many hotels in your search results.
+**Please consider that this is a prototype/proof-of-concept which pushes the boundaries and therefore tends to fails often.**
 * HotelRoute uses [bahn.de](http://bahn.de) to find the shortest trip between each of the hotels and your travel destination.  
 This means HotelRoute mostly works only for German destinations.
 * HotelRoute uses "unofficial" APIs for [bahn.de](http://bahn.de), accesses and modifies [hrs.de](http://www.hrs.de) pages directly.  
@@ -68,8 +72,8 @@ In certain cases (public holidays etc.) these results may be not representative.
 ## Privacy
 
 * HotelRoute accesses travel destination, arrival and departure dates and the results of your search.
-* This information is transmitted to the [api.hotelsearch.org](http://api.hotelsearch.org) and indirectly to [bahn.de](http://bahn.de). It is neither stored nor transmitted to any other parties.
-* Currently we use the `HTTP` protocol to transfer data. This means that third parties potentially have access to the information indicated above.
+* This information is transmitted to the [api.hotelroute.org](http://api.hotelroute.org) and indirectly to [bahn.de](http://bahn.de). It is neither stored nor transmitted to any other parties.
+* Currently we use the `HTTP` protocol to transfer data. This means that third parties may potentially get access to the transferred data.
 
 ## Contact
 
