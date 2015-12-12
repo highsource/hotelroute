@@ -138,22 +138,28 @@ hotelsObserver.observe(target, config);
 
 function addFilter(node)
 {
-	var str = '<div class="teaser"><div id="traveltime" class="sliderBox clearFix">';
-	str += '<label style="width:auto;">Fahrzeit</label>';
-	str += '<input type="text" class="noInput" readonly style="border:none;" value="0 - 60 min">';
-	str += '<div class="slider " data-celname="Main Filter" data-celpos="5" data-celinfo="traveltime">';
+	var str = '<div class="teaser"><div id="walking" class="sliderBox clearFix">';
+	str += '<label style="width:auto;">Fußweg</label>';
+	str += '<input type="text" class="noInput" readonly style="border:none;" value="0 - 20 min">';
+	str += '<div class="slider " data-celname="Main Filter" data-celpos="5" data-celinfo="walking">';
 	str += '<div class="knobs knob1" style="left: 0px; position: relative;">&nbsp;</div>';
 	str += '<div class="knobs knob2" style="left: 170px; position: relative;">&nbsp;</div>';
 	str += '<div class="leftEl" style="width: 0px;"></div>';
 	str += '<div class="rightEl" style="width: 14px;"></div>';
 	str += '</div>';
-	str += '<div class="measure"><span class="left">0</span> <span class="right">60</span></div>';
+	str += '<div class="measure"><span class="left">0</span> <span class="right">20</span></div>';
 	str += '</div></div>';
 
 	node.insertAdjacentHTML('beforeend', str);
 	node.insertBefore(node.childNodes[node.childNodes.length-1],node.childNodes[2]);
 
-//	Filter.multiSliders.push("traveltime");
+//	console.log(Filter);
+//	console.log(MultiSliderFilter);
+//	window.Filter.multiSliders.push("walking");
+//	Filter.filter.push(new MultiSliderFilter($('walking'),Filter,Filter.sliderSettings['walking']));
+//	new window.MultiSliderFilter(document.getElementById('walking'),window.Filter,{});
+//	window.HotellistEventManager;
+	console.log(chrome);
 }
 
 var filter = document.getElementById("filter");
