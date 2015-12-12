@@ -17,7 +17,7 @@ The [HotelRoute back-end](http://api.hotelroute.org/index.html) uses [bahn.de](h
 
 In case of errors, public transport connection information **will not be added to many or most of the hotels in your search results**.
 
-Please consider that at the moment HotelRoute is just a proof-of-concept which pushes the boundaries of existing systems and therefore breaks very often.
+Please consider that at the moment HotelRoute is just a proof-of-concept which pushes the boundaries of existing systems and therefor breaks very often.
 
 # What it does
 
