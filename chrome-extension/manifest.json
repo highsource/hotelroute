@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
   "name": "HotelRoute",
-  "description": "HotelRoute helps you to find hotels with the best public transport connection to your destination. It helps you to save time, save money, reduce travel stress and get better hotel quality. HotelRoute extends hotel search results of hrs.de and adds information on public transport connection between the found hotels and the travel destination. HotelRoute adds the following information: walking time to the next public transport stop, duration of the trip with public transport to your destination (in minutes) and how many times do you have to change during the trip",
-  "version": "1.0",
+  "description": "HotelRoute extends hotel search results of hrs.de and adds information on public transport connection between the found hotels and your travel destination.",
+  "version": "1.0.0.15",
   "permissions": ["tabs", "http://*/*"],
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "homepage_url": "http://www.hotelroute.org",
   "content_scripts" : [{
         "matches" : [ "http://www.hrs.de/web3/searchWeb1000.do*"],
-        "js" : ["myScript.js"]
+        "js" : ["hotelroute-hrsde.js"]
     }]
 }
