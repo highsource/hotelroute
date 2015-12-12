@@ -2,7 +2,7 @@
 
 HotelRoute is a Google Chrome extension which helps you to find hotels with the best public transport connection to your destination.
 
-It helps you to save time, save money, reduce travel stress and get better hotel quality.
+Save time, money, reduce travel stress and get better hotel quality.
 
 ## Status
 
