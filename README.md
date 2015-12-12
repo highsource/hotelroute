@@ -4,6 +4,10 @@ HotelRoute is a Google Chrome extension which helps you to find hotels with the 
 
 It helps you to save time, save money, reduce travel stress and get better hotel quality.
 
+## Status
+
+HotelRoute was developed by [Thomas Tursics](http://github.com/tursics) and [Alexey Valikov](http://github.com/highsource) as the [DB Hackathon 3](https://www.mindboxberlin.com/index.php/3rdhackathon.html) project and should be considered a prototype or a proof-of-concept implementation.
+
 ## What it does
 
 HotelRoute extends hotel search results of [hrs.de](http://www.hrs.de) and adds information on public transport connection between the found hotels and the travel destination.
@@ -23,7 +27,7 @@ search results typically contain distance to your destination in kilometers or m
 
 If you prefer using public transport, distance in kilometers does not help you that much.
 Depending on the location of your hotel and your travel destination, 10 kilometers may take you 10 minutes or over an hour.
-This may be a direct connection or you may need to change transport means a couple of time.
+This may be a direct connection or you may need to change transport means a couple of times.
 
 All of this makes a great difference in terms of time and stress, and ultimately has great influence on yoru travel experience.
 
@@ -35,11 +39,14 @@ This helps you to:
 * save money by avoiding expensive central hotels,
 * get better hotel quality (more hotel stars) for the price in offside, but still well connected hotels.
 
-## How it works
+## How to use it
 
-* HotelRoute is a Google Chrome extension which works with hotel search on [hrs.de](http://www.hrs.de).
-* 
-Finds hotels with the best public transport connection to your destination.
+* Download and install the Google Chrome extension from [Releases](https://github.com/highsource/hotelroute/releases)
+* Go to [hrs.de](http://www.hrs.de/) and search for hotels for a travel destination in Germany:  
+![Searching for the hotel near Berlin U-Bahn Jannowitzbrücke](media/hrsde02.png)
+* See the connection information in results:  
+![9 minutes walk + 15 min travel from Rheinsberg am See; 11 minutes + 28 minutes from Michels Apart](media/hrsde03.png)
+* Choose the hotel which suits you best
 
 ## Disclaimer
 
@@ -61,9 +68,10 @@ In certain cases (public holidays etc.) these results may be not representative.
 ## Privacy
 
 * HotelRoute accesses travel destination, arrival and departure dates and the results of your search.
-* This information is transmitted to the [api.hotelsearch.org](http://api.hotelsearch.org) and indirectly to [bahn.de](http://bahn.de).
+* This information is transmitted to the [api.hotelsearch.org](http://api.hotelsearch.org) and indirectly to [bahn.de](http://bahn.de). It is neither stored nor transmitted to any other parties.
 * Currently we use the `HTTP` protocol to transfer data. This means that third parties potentially have access to the information indicated above.
 
 ## Contact
 
-TODO
+* [Alexey Valikov](https://www.xing.com/profile/Aleksei_Valikov)
+* [Thomas Tursics](https://www.xing.com/profile/Thomas_Tursics)
