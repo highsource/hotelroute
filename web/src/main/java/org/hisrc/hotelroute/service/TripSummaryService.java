@@ -12,14 +12,11 @@ import org.apache.commons.lang3.Validate;
 import org.hisrc.hotelroute.dto.TripSummary;
 import org.springframework.stereotype.Service;
 
-import de.schildbach.pte.NetworkProvider;
 import de.schildbach.pte.NetworkProvider.Accessibility;
 import de.schildbach.pte.NetworkProvider.WalkSpeed;
 import de.schildbach.pte.dto.Location;
 import de.schildbach.pte.dto.Product;
 import de.schildbach.pte.dto.QueryTripsResult;
-import de.schildbach.pte.dto.SuggestLocationsResult;
-import de.schildbach.pte.dto.SuggestLocationsResult.Status;
 import de.schildbach.pte.dto.Trip;
 import de.schildbach.pte.dto.Trip.Individual;
 import de.schildbach.pte.dto.Trip.Leg;
@@ -28,18 +25,26 @@ import de.schildbach.pte.dto.Trip.Leg;
 public class TripSummaryService {
 
 	@Inject
-	private NetworkProvider networkProvider;
+	private NetworkProviderService networkProviderService;
 
-	public void setNetworkProvider(NetworkProvider networkProvider) {
-		this.networkProvider = networkProvider;
+	@Inject
+	private LocationService locationService;
+
+	public void setNetworkProviderService(
+			NetworkProviderService networkProviderService) {
+		this.networkProviderService = networkProviderService;
+	}
+
+	public void setLocationService(LocationService locationService) {
+		this.locationService = locationService;
 	}
 
 	public TripSummary queryTripSummary(Long requestId, String origin,
 			String destination, Date startDate, Date endDate)
 			throws IOException {
 
-		final Location from = queryLocation(origin);
-		final Location to = queryLocation(destination);
+		final Location from = locationService.queryNonStationLocation(origin);
+		final Location to = locationService.queryLocation(destination);
 
 		if (from == null || to == null) {
 			return null;
@@ -52,18 +57,23 @@ public class TripSummaryService {
 	public Date createTripDate(Date date) {
 		Validate.notNull(date);
 		final Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
+		long currentTimeInMillis = calendar.getTimeInMillis();
+		calendar.setTimeInMillis(date.getTime());
 		calendar.set(Calendar.HOUR, 9);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
+
+		while (calendar.getTimeInMillis() < currentTimeInMillis) {
+			calendar.setTimeInMillis(calendar.getTimeInMillis()
+					+ (24 * 60 * 60 * 1000));
+		}
+
 		return calendar.getTime();
 	}
 
 	public TripSummary queryTripSummary(Long requestId, Location from,
 			Location to, Date date) throws IOException {
-		final QueryTripsResult result = networkProvider.queryTrips(from, null,
-				to, new Date(), true, Product.ALL, WalkSpeed.NORMAL,
-				Accessibility.NEUTRAL, null);
+		final QueryTripsResult result = queryTrips(from, to, date);
 
 		if (result == null || result.status != QueryTripsResult.Status.OK
 				|| result.trips.isEmpty()) {
@@ -92,6 +102,14 @@ public class TripSummaryService {
 		}
 	}
 
+	private QueryTripsResult queryTrips(Location from, Location to, Date date)
+			throws IOException {
+		final QueryTripsResult result = networkProviderService.queryTrips(from,
+				null, to, date, true, Product.ALL, WalkSpeed.NORMAL,
+				Accessibility.NEUTRAL, null);
+		return result;
+	}
+
 	private TripSummary createTripSummary(Long requestId, Trip trip) {
 		Validate.notNull(trip);
 		final Leg firstLeg = trip.legs.get(0);
@@ -109,16 +127,4 @@ public class TripSummaryService {
 				travelDuration, trip.numChanges);
 	}
 
-	public Location queryLocation(String text) throws IOException {
-
-		final SuggestLocationsResult suggestLocationsResult = networkProvider
-				.suggestLocations(text);
-		if (suggestLocationsResult == null
-				|| suggestLocationsResult.status != Status.OK
-				|| suggestLocationsResult.getLocations().isEmpty()) {
-			return null;
-		} else {
-			return suggestLocationsResult.getLocations().get(0);
-		}
-	}
 }

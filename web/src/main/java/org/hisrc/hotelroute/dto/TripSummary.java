@@ -10,12 +10,12 @@ public class TripSummary implements Serializable {
 
 	private static final long serialVersionUID = 364900051056665010L;
 
-	public Long requestId;
+	public final Long requestId;
 	public final Location from;
 	public final Location to;
 	public final int numChanges;
-	public Long walkDuration;
-	public long travelDuration;
+	public final Long walkDuration;
+	public final long travelDuration;
 
 	public TripSummary(Long requestId, Location from, Location to,
 			Long firstWalkDuration, long travelDuration, int numChanges) {
