@@ -58,8 +58,8 @@ function injectResults(data)
 function callAPIFunction(address, hotelId)
 {
 	var now = new Date().getTime();
-	var url = 'http://api.hotelroute.org/queryTripSummary?to=' +
-//	var url = 'http://localhost:8080/hotelroute-web/queryTripSummary?to=' +
+//	var url = 'http://api.hotelroute.org/queryTripSummary?to=' +
+	var url = 'http://localhost:5000/queryTripSummary?to=' +
 		encodeURIComponent(destination) + '&from=' + encodeURIComponent(address) + '&startDate=' + now + '&endDate=' + now + '&requestId=' + hotelId;
 //	console.log(url);
 

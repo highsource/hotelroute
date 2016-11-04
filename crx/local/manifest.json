@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "HotelRoute Local",
+  "description": "HotelRoute extends hotel search results of hrs.de and adds information on public transport connection between the found hotels and your travel destination.",
+  "version": "1.0.0.30",
+  "permissions": ["http://www.hrs.de/*", "http://localhost:5000/*", "http://api.hotelroute.org/*"],
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
+  "homepage_url": "http://www.hotelroute.org",
+  "content_scripts" : [{
+        "matches" : [ "http://www.hrs.de/web3/searchWeb1000.do*"],
+        "js" : ["hotelroute-hrsde.js"]
+    }]
+}

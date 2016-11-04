@@ -15,11 +15,11 @@ import org.hisrc.hotelroute.service.LocationService;
 import org.hisrc.hotelroute.service.NetworkProviderService;
 import org.hisrc.hotelroute.service.TripSummaryService;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import de.schildbach.pte.BahnProvider;
 import de.schildbach.pte.NetworkProvider;
-import de.schildbach.pte.dto.Location;
 
 public class TripSummaryServiceTest {
 
@@ -34,6 +34,7 @@ public class TripSummaryServiceTest {
 		tripSummaryService.setLocationService(locationService);
 	}
 
+	@Ignore
 	@Test
 	public void successfullyQueriesTripSummary() throws IOException {
 		final TripSummary tripSummary = tripSummaryService.queryTripSummary(
@@ -44,6 +45,7 @@ public class TripSummaryServiceTest {
 
 	}
 
+	@Ignore
 	@Test
 	public void successfullyQueriesTripSummaries() throws IOException,
 			InterruptedException, ExecutionException {
