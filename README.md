@@ -56,7 +56,21 @@ This helps you to:
 
 # How to use it
 
-* Download and install the [HotelRoute Google Chrome extension](https://github.com/highsource/hotelroute/releases/download/1.0.0.15/hotelroute.crx)
+## Hosted Back-End
+
+* Download and install the [HotelRoute Google Chrome extension](https://github.com/highsource/hotelroute/releases/download/1.0.0.21/hotelroute.crx)
+* Restart the browser
+* Go to [hrs.de](http://www.hrs.de/) and search for hotels for a travel destination in Germany:  
+![Searching for the hotel near Berlin U-Bahn Jannowitzbrücke](media/hrsde02.png)
+* See the connection information in the search results:  
+![9 minutes walk + 15 min travel from Rheinsberg am See; 11 minutes + 28 minutes from Michels Apart](media/hrsde03.png)
+* Choose the hotel which suits you best
+
+## Local Back-End
+
+* Download HotelRoute back-end [`hotelroute.jar`](https://github.com/highsource/hotelroute/releases/download/1.0.0.21/hotelroute.jar)
+* Start it via `java -jar hotelroute.jar`.
+* Download and install the [HotelRoute Local Google Chrome extension](https://github.com/highsource/hotelroute/releases/download/1.0.0.21/hotelroute-local.crx)
 * Restart the browser
 * Go to [hrs.de](http://www.hrs.de/) and search for hotels for a travel destination in Germany:  
 ![Searching for the hotel near Berlin U-Bahn Jannowitzbrücke](media/hrsde02.png)
